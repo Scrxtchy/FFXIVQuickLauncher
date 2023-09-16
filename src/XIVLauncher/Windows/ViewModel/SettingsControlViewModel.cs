@@ -68,7 +68,8 @@ namespace XIVLauncher.Windows.ViewModel
             GamePathSafeguardRegionLoc = Loc.Localize("GamePathSafeguardRegionWarning",
                 "XIVLauncher does not support Chinese or Korean version of the game. Make sure this path indeed is for the international version.");
             SteamCheckBoxLoc = Loc.Localize("FirstTimeSteamCheckBox", "Enable Steam integration");
-            OtpServerCheckBoxLoc = Loc.Localize("OtpServerCheckBox", "Enable XL Authenticator app/OTP macro support");
+            OtpServerCheckBoxLoc = Loc.Localize("OtpServerCheckBox", "Enable KeepassXC browser-integration");
+            OtpUUIDEntryLoc = Loc.Localize("KeepassUUIDentry", "Keepass entry UUID");
             OtpServerTooltipLoc = Loc.Localize("OtpServerTooltip", "This will allow you to send your OTP code to XIVLauncher directly from your phone.\nClick \"Learn more\" to see how to set this up.");
             LearnMoreLoc = Loc.Localize("LearnMore", "Learn More");
             OtpLearnMoreTooltipLoc = Loc.Localize("OtpLearnMoreTooltipLoc", "Open a guide in your web browser.");
@@ -173,6 +174,7 @@ namespace XIVLauncher.Windows.ViewModel
         public string GamePathSafeguardRegionLoc { get; private set; }
         public string SteamCheckBoxLoc { get; private set; }
         public string OtpServerCheckBoxLoc { get; private set; }
+        public string OtpUUIDEntryLoc { get; private set; } 
         public string OtpServerTooltipLoc { get; private set; }
         public string LearnMoreLoc { get; private set; }
         public string OtpLearnMoreTooltipLoc { get; private set; }

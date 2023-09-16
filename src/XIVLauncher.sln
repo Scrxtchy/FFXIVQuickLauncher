@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XIVLauncher", "XIVLauncher\XIVLauncher.csproj", "{BEB33308-6E15-41F7-ACC8-86BB786E2E56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XIVLauncher", "XIVLauncher\XIVLauncher.csproj", "{BEB33308-6E15-41F7-ACC8-86BB786E2E56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XIVLauncher.PatchInstaller", "XIVLauncher.PatchInstaller\XIVLauncher.PatchInstaller.csproj", "{395CDFAB-48F8-4EC5-833D-05F5795A157D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XIVLauncher.PatchInstaller", "XIVLauncher.PatchInstaller\XIVLauncher.PatchInstaller.csproj", "{395CDFAB-48F8-4EC5-833D-05F5795A157D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XIVLauncher.Common", "XIVLauncher.Common\XIVLauncher.Common.csproj", "{24916430-532C-4D4D-93FF-861076E8F63C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XIVLauncher.Common", "XIVLauncher.Common\XIVLauncher.Common.csproj", "{24916430-532C-4D4D-93FF-861076E8F63C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10DF8F12-50FD-45D8-8A38-17BA764BF54D}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,11 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CodeAnalysis\xl.ruleset = CodeAnalysis\xl.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XIVLauncher.Common.Tests", "XIVLauncher.Common.Tests\XIVLauncher.Common.Tests.csproj", "{FE0EAE21-4812-4565-8766-856AE9F9E99B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XIVLauncher.Common.Tests", "XIVLauncher.Common.Tests\XIVLauncher.Common.Tests.csproj", "{FE0EAE21-4812-4565-8766-856AE9F9E99B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XIVLauncher.Common.Windows", "XIVLauncher.Common.Windows\XIVLauncher.Common.Windows.csproj", "{4BD8A159-1B5E-41ED-A215-75B9871BA929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XIVLauncher.Common.Windows", "XIVLauncher.Common.Windows\XIVLauncher.Common.Windows.csproj", "{4BD8A159-1B5E-41ED-A215-75B9871BA929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XIVLauncher.Common.Unix", "XIVLauncher.Common.Unix\XIVLauncher.Common.Unix.csproj", "{08CE4E78-7C47-43D6-98CB-68655DEAF66A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XIVLauncher.Common.Unix", "XIVLauncher.Common.Unix\XIVLauncher.Common.Unix.csproj", "{08CE4E78-7C47-43D6-98CB-68655DEAF66A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeePassXC-API", "KeePassXC-API\KeePassXC-API\KeePassXC-API.csproj", "{7357ED27-6E8C-4D35-A928-6DD900E265AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,12 @@ Global
 		{08CE4E78-7C47-43D6-98CB-68655DEAF66A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08CE4E78-7C47-43D6-98CB-68655DEAF66A}.ReleaseNoUpdate|Any CPU.ActiveCfg = Debug|Any CPU
 		{08CE4E78-7C47-43D6-98CB-68655DEAF66A}.ReleaseNoUpdate|Any CPU.Build.0 = Debug|Any CPU
+		{7357ED27-6E8C-4D35-A928-6DD900E265AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7357ED27-6E8C-4D35-A928-6DD900E265AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7357ED27-6E8C-4D35-A928-6DD900E265AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7357ED27-6E8C-4D35-A928-6DD900E265AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7357ED27-6E8C-4D35-A928-6DD900E265AD}.ReleaseNoUpdate|Any CPU.ActiveCfg = Release|Any CPU
+		{7357ED27-6E8C-4D35-A928-6DD900E265AD}.ReleaseNoUpdate|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

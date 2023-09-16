@@ -18,6 +18,7 @@ using XIVLauncher.Common.Game.Patch.Acquisition;
 using XIVLauncher.Common.Util;
 using XIVLauncher.Support;
 using XIVLauncher.Windows.ViewModel;
+using KeePassXC_API;
 
 namespace XIVLauncher.Windows
 {
@@ -76,6 +77,7 @@ namespace XIVLauncher.Windows
             this.EnableHooksCheckBox.Checked += this.EnableHooksCheckBox_OnChecked;
 
             OtpServerCheckBox.IsChecked = App.Settings.OtpServerEnabled;
+            TOTPuuid.Text = App.Settings.KeepassUUID;
 
             LaunchArgsTextBox.Text = App.Settings.AdditionalLaunchArgs;
 
@@ -125,6 +127,7 @@ namespace XIVLauncher.Windows
                 App.Settings.InGameAddonLoadMethod = DalamudLoadMethod.EntryPoint;
 
             App.Settings.OtpServerEnabled = OtpServerCheckBox.IsChecked == true;
+            App.Settings.KeepassUUID = TOTPuuid.Text;
 
             App.Settings.AdditionalLaunchArgs = LaunchArgsTextBox.Text;
 

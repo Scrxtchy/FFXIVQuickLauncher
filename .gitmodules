@@ -1,0 +1,3 @@
+[submodule "src/KeePassXC-API"]
+	path = src/KeePassXC-API
+	url = https://github.com/Scrxtchy/KeePassXC-API
