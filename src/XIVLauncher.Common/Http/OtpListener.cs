@@ -39,14 +39,11 @@ namespace XIVLauncher.Common.Http
             List<(byte[] qr, string ip)> qrcodes = new();
             qrGenerator.CreateQrCode("test", QRCodeGenerator.ECCLevel.L);
             NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (NetworkInterface adapter in interfaces)
+            foreach (NetworkInterface adapter in interfaces.Where(adp => adp.OperationalStatus == OperationalStatus.Up && adp.GetIPProperties().GatewayAddresses.Count != 0))
             {
-                if (adapter.OperationalStatus == OperationalStatus.Up)
+                foreach (var ip in adapter.GetIPProperties().UnicastAddresses.Where(ip => ip.Address.AddressFamily == AddressFamily.InterNetwork))
                 {
-                    foreach (var ip in adapter.GetIPProperties().UnicastAddresses.Where(ip => ip.Address.AddressFamily == AddressFamily.InterNetwork))
-                    {
-                        qrcodes.Add((new BitmapByteQRCode(qrGenerator.CreateQrCode($"http://{ip.Address}:{HTTP_PORT}/ffxivlauncher/", QRCodeGenerator.ECCLevel.L)).GetGraphic(1), ip.Address.ToString()));
-                    }
+                    qrcodes.Add((new BitmapByteQRCode(qrGenerator.CreateQrCode($"http://{ip.Address}:{HTTP_PORT}/ffxivlauncher/", QRCodeGenerator.ECCLevel.L)).GetGraphic(5), ip.Address.ToString()));
                 }
             }
             return qrcodes.ToArray();
