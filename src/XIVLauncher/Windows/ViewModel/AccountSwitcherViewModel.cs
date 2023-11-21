@@ -11,12 +11,14 @@ namespace XIVLauncher.Windows.ViewModel
 
         private void SetupLoc()
         {
+            AccountSwitcherSetKeePassEntryUUIDLoc = Loc.Localize("AccountSwitcherSetKeePassEntryUUIDLoc", "Set KeePass Entry UUID");
             AccountSwitcherSetProfilePicLoc = Loc.Localize("AccountSwitcherSetProfilePic", "Set profile picture");
             AccountSwitcherCreateShortcutLoc = Loc.Localize("AccountSwitcherCreateShortcut", "Create desktop shortcut");
             RemoveLoc = Loc.Localize("Remove", "Remove");
             AccountSwitcherDontSavePasswordLoc = Loc.Localize("AccountSwitcherDontSavePassword", "Don't save password");
         }
 
+        public string AccountSwitcherSetKeePassEntryUUIDLoc { get; private set; }
         public string AccountSwitcherSetProfilePicLoc { get; private set; }
         public string AccountSwitcherCreateShortcutLoc { get; private set; }
         public string RemoveLoc { get; private set; }

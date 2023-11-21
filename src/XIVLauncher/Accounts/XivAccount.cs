@@ -96,6 +96,7 @@ namespace XIVLauncher.Accounts
         public string ThumbnailUrl;
 
         public string LastSuccessfulOtp;
+        public string KeepPassEntryUUID { get; set; }
 
         public XivAccount(string userName)
         {

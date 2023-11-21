@@ -40,11 +40,16 @@
                     <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
                         <CheckBox Foreground="{DynamicResource MaterialDesignBody}"
                                   x:Name="OtpServerCheckBox" Content="{Binding OtpServerCheckBoxLoc}" ToolTip="{Binding OtpServerTooltipLoc}"/>
-
-
-                        <TextBox Width="500" VerticalAlignment="Center"
-                             HorizontalAlignment="Left" Foreground="{DynamicResource MaterialDesignBody}"
-                             Margin="10,0,0,0" x:Name="TOTPuuid" materialDesign:HintAssist.Hint="{Binding OtpUUIDEntryLoc}" materialDesign:HintAssist.IsFloating="True"/>
+                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                                HorizontalAlignment="Left" Click="LearnMoreButton_OnClick" Margin="5 0 0 0">
+                            <Button.ToolTip>
+                                <TextBlock Text="{Binding OtpLearnMoreTooltipLoc}" />
+                            </Button.ToolTip>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center"
+                                           Foreground="DarkGray" FontSize="11" Text="{Binding LearnMoreLoc}"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
 
                     <CheckBox Foreground="{DynamicResource MaterialDesignBody}"

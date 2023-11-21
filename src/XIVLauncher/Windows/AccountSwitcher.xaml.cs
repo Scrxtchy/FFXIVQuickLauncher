@@ -210,6 +210,19 @@ namespace XIVLauncher.Windows
             RefreshEntries();
         }
 
+        private void SetKeyPassEntryUUID_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!(AccountListView.SelectedItem is AccountSwitcherEntry selectedEntry))
+                return;
+
+            var inputDialog = new KeepassEntryInputWindow(selectedEntry.Account);
+            inputDialog.ShowDialog();
+            var account = _accountManager.Accounts.First(a => a.Id == selectedEntry.Account.Id);
+            account.KeepPassEntryUUID = inputDialog.ResultKeepPassEntryUUID;
+            _accountManager.Save();
+            RefreshEntries();
+        }
+
         private void DontSavePassword_OnChecked(object sender, RoutedEventArgs e)
         {
             if (!(AccountListView.SelectedItem is AccountSwitcherEntry selectedEntry))

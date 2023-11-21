@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using CheapLoc;
+using KeePassXC_API;
 using Serilog;
 using XIVLauncher.Accounts;
 using XIVLauncher.Common;
@@ -277,14 +278,23 @@ namespace XIVLauncher.Windows.ViewModel
 
             if (isOtp && (!hasValidCache || action == AfterLoginAction.Repair))
             {
-                otp = OtpInputDialog.AskForOtp((otpDialog, result) =>
+
+                if (!String.IsNullOrEmpty(AccountManager.CurrentAccount.KeepPassEntryUUID))
                 {
-                    if (AccountManager.CurrentAccount != null && result != null && AccountManager.CurrentAccount.LastSuccessfulOtp == result)
+                    KeepassXCApi keepassXCApi = new();
+                    otp = await keepassXCApi.GetOTP(AccountManager.CurrentAccount.KeepPassEntryUUID);
+                }
+                else
+                {
+                    otp = OtpInputDialog.AskForOtp((otpDialog, result) =>
                     {
-                        otpDialog.IgnoreCurrentResult(Loc.Localize("DuplicateOtpAfterSuccess",
-                                                                   "This OTP has been already used.\nIt may take up to 30 seconds for a new one."));
-                    }
-                }, _window);
+                        if (AccountManager.CurrentAccount != null && result != null && AccountManager.CurrentAccount.LastSuccessfulOtp == result)
+                        {
+                            otpDialog.IgnoreCurrentResult(Loc.Localize("DuplicateOtpAfterSuccess",
+                                                                       "This OTP has been already used.\nIt may take up to 30 seconds for a new one."));
+                        }
+                    }, _window);
+                }
             }
 
             if (otp == null)

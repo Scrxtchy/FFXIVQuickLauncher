@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using KeePassXC_API;
 using Serilog;
 using XIVLauncher.Common.Http;
 using XIVLauncher.Windows.ViewModel;
@@ -26,6 +25,7 @@ namespace XIVLauncher.Windows
 
         private OtpInputDialogViewModel ViewModel => DataContext as OtpInputDialogViewModel;
 
+        private OtpListener _otpListener;
         private bool _ignoreCurrentOtp;
 
         public OtpInputDialog()
@@ -45,35 +45,26 @@ namespace XIVLauncher.Windows
         {
             OtpTextBox.Focus();
 
-            if (App.Settings.OtpServerEnabled && App.Settings.KeepassUUID != String.Empty)
+            if (App.Settings.OtpServerEnabled)
             {
-                /*_otpListener = new OtpListener("legacy-" + AppUtil.GetAssemblyVersion());
-                _otpListener.OnOtpReceived += TryAcceptOtp;*/
+                _otpListener = new OtpListener("legacy-" + AppUtil.GetAssemblyVersion());
+                _otpListener.OnOtpReceived += TryAcceptOtp;
 
                 try
                 {
                     // Start Listen
-                    Task.Run(() => QueryDatabase());
+                    Task.Run(() => _otpListener.Start());
                     Log.Debug("OTP server started...");
                 }
                 catch (Exception ex)
                 {
                     Log.Error(ex, "Could not start OTP HTTP listener.");
                 }
-                /*var t = Task.Run(QueryDatabase);
-                TryAcceptOtp(t.Result);*/
             }
 
             return base.ShowDialog();
         }
 
-        private async void QueryDatabase()
-        {
-
-            KeepassXCApi keepassXCApi = new();
-            string otp = await keepassXCApi.GetOTP(App.Settings.KeepassUUID);
-            TryAcceptOtp(otp);
-        }
         public void Reset()
         {
             OtpInputPrompt.Text = ViewModel.OtpInputPromptLoc;
@@ -122,7 +113,7 @@ namespace XIVLauncher.Windows
                 }
                 else
                 {
-                    /*_otpListener?.Stop();*/
+                    _otpListener?.Stop();
                     DialogResult = true;
                     Hide();
                 }
@@ -132,7 +123,7 @@ namespace XIVLauncher.Windows
         private void Cancel()
         {
             OnResult?.Invoke(null);
-            /*_otpListener?.Stop();*/
+            _otpListener?.Stop();
             DialogResult = false;
             Hide();
         }
