@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Serilog;
 using XIVLauncher.Common.PlatformAbstractions;
 
 namespace XIVLauncher.PlatformAbstractions
@@ -12,6 +15,8 @@ namespace XIVLauncher.PlatformAbstractions
         private const int DAYS_TO_TIMEOUT = 1;
 
         private List<UniqueIdCacheEntry> _cache;
+        private string CacheURL => Environment.GetEnvironmentVariable("XL_CACHE_VERIFIER");
+        private (string username, bool verified) isCacheVerified;
 
         public CommonUniqueIdCache(FileInfo? saveFile)
         {
@@ -75,6 +80,18 @@ namespace XIVLauncher.PlatformAbstractions
                 ExpansionLevel = expansionLevel
             });
 
+            if (CacheURL?.StartsWith("https://") ?? false)
+            {
+                Task.Run(async () =>
+                {
+                    using var client = new HttpClient();
+                    await client.PostAsync(CacheURL, new FormUrlEncodedContent(
+                        [new KeyValuePair<string, string>("action", "save"),
+                    new KeyValuePair<string, string>("username", userName),
+                    new KeyValuePair<string, string>("host", System.Net.Dns.GetHostName())]
+                        ));
+                });
+            }
             Save();
         }
 
@@ -99,9 +116,35 @@ namespace XIVLauncher.PlatformAbstractions
             return true;
         }
 
-        private bool IsValidCache(UniqueIdCacheEntry entry, string name) => entry.UserName == name &&
-                                                                            (DateTime.Now - entry.CreationDate).TotalDays <=
-                                                                            DAYS_TO_TIMEOUT;
+        private bool IsValidCache(UniqueIdCacheEntry entry, string name)
+        {
+            bool localValid = entry.UserName == name && (DateTime.Now - entry.CreationDate).TotalDays <= DAYS_TO_TIMEOUT;
+
+            if (localValid && (CacheURL?.StartsWith("https://") ?? false)) // 
+            {
+
+                if (this.isCacheVerified.verified && this.isCacheVerified.username == name) return true;
+                var onlineVerified = Task.Run(() =>
+                {
+                    var client = new HttpClient();
+                    using (var res = client.PostAsync(CacheURL,
+                        new FormUrlEncodedContent(
+                            [new KeyValuePair<string, string>("action", "load"),
+                            new KeyValuePair<string, string>("username", name),
+                            new KeyValuePair<string, string>("host", System.Net.Dns.GetHostName())])
+                            ))
+                    {
+                        Log.Information($"Recieved ${(int)res.Result.StatusCode} from verifier");
+                        return (int)res.Result.StatusCode == 200;
+                    }
+
+                }).Result;
+                if (onlineVerified) this.isCacheVerified = (name, onlineVerified);
+                return onlineVerified;
+            }
+
+            return localValid;
+        }
 
         public class UniqueIdCacheEntry
         {
