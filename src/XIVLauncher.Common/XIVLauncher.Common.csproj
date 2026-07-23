@@ -27,7 +27,7 @@
     <ItemGroup>
         <PackageReference Include="CommandLineParser"/>
         <PackageReference Include="Newtonsoft.Json" />
-        <PackageReference Include="QRCoder" Version="1.4.3" />
+        <PackageReference Include="QRCoder" />
         <PackageReference Include="Serilog" />
         <PackageReference Include="Serilog.Enrichers.Sensitive" />
         <PackageReference Include="Serilog.Sinks.Async" />
